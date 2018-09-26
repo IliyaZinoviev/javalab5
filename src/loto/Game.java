@@ -12,13 +12,14 @@ public class Game {
     private ArrayList<Integer> pouch = new ArrayList<>(countBarrels);
     private Board board = new Board(canvas.getGraphicsContext2D(), countBarrels);
     private boolean gameOver = false;
+    private PlayerAction playerAction = new PlayerAction(this);
 
     public Game(){
         for(int i = 1; i <= countBarrels; i++)
             pouch.add(i);
         for(int i = 0; i<arrPlayers.length; i++)
             arrPlayers[i] = new Thread(new Player(new Color(Math.random(), Math.random(), Math.random(), 1),
-                    i, this));
+                    this));
     }
 
     public void start() {
@@ -48,5 +49,9 @@ public class Game {
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+    }
+
+    public PlayerAction getPlayerAction() {
+        return playerAction;
     }
 }
