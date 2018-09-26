@@ -47,11 +47,6 @@ public class Game {
             gameOver = true;
             System.out.println(Thread.currentThread().getName() + " достал последнюю фишку!");
         }
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
-        }
     }
 
     private int getRandom(int i){

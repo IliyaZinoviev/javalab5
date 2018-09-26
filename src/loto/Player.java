@@ -15,7 +15,13 @@ public class Player implements Runnable {
 
     public void run() {
         ArrayList<Integer> pouch = game.getPouch();
-        while (!pouch.isEmpty())
+        while (!pouch.isEmpty()) {
             game.getBarrel(color);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 }
