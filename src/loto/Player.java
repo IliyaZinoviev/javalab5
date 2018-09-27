@@ -7,7 +7,6 @@ public class Player implements Runnable {
     private Game game;
 
     public Player(Color color, Game game) {
-        super();
         this.color = color;
         this.game = game;
     }
