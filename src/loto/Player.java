@@ -17,39 +17,40 @@ public class Player implements Runnable {
 
     public void run() {
         ArrayList<Integer> pouch = game.getPouch();
-        Board board = game.getBoard();
-        while (!pouch.isEmpty())
-            getBarrel(pouch, board);
-    }
-
-    private void getBarrel(ArrayList<Integer> pouch, Board board){
-        synchronized (board) {
-            int countBarrels = game.getCountBarrels();
-            Integer barrel = getRandom(countBarrels);
-            Item item;
-            Integer isBarrel = barrel;
-            while (!pouch.contains(barrel)) {
-                if (barrel > 1) {
-                    barrel -= 1;
-                } else
-                    barrel = countBarrels;
-                if (barrel.equals(isBarrel))
-                    break;
-            }
-            pouch.remove(barrel);
-            item = board.getArrItems()[barrel - 1];
-            item.setColor(color);
-            item.draw();
-            System.out.println(Thread.currentThread().getName() + " достал фишку " + barrel);
-            if (pouch.isEmpty() && !game.isGameOver()) {
-                game.setGameOver(true);
-                System.out.println(Thread.currentThread().getName() + " достал последнюю фишку!");
+        while (!pouch.isEmpty()) {
+            getBarrel(pouch);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                System.err.println(e.getMessage());
             }
         }
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+    }
+
+    private void getBarrel(ArrayList<Integer> pouch) {
+        synchronized (pouch) {
+            if (!pouch.isEmpty()) {
+                Board board = game.getBoard();
+                int countBarrels = game.getCountBarrels();
+                Integer barrel = getRandom(countBarrels);
+                Item item;
+                Integer isBarrel = barrel;
+                while (!pouch.contains(barrel)) {
+                    if (barrel > 1) {
+                        barrel -= 1;
+                    } else
+                        barrel = countBarrels;
+                    if (barrel.equals(isBarrel))
+                        break;
+                }
+                pouch.remove(barrel);
+                item = board.getArrItems()[barrel - 1];
+                item.setColor(color);
+                item.draw();
+                System.out.println(Thread.currentThread().getName() + " достал фишку " + barrel);
+                if (pouch.isEmpty())
+                    System.out.println(Thread.currentThread().getName() + " достал последнюю фишку!");
+            }
         }
     }
 
