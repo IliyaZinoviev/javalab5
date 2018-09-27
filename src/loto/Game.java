@@ -11,7 +11,6 @@ public class Game {
     private Thread[] arrPlayers = new Thread[countPlayers];
     private ArrayList<Integer> pouch = new ArrayList<>(countBarrels);
     private Board board = new Board(canvas.getGraphicsContext2D(), countBarrels);
-    private boolean gameOver = false;
 
     public Game() {
         for (int i = 1; i <= countBarrels; i++)
@@ -27,25 +26,25 @@ public class Game {
     }
 
     public synchronized void getBarrel(Color color) {
-        Integer barrel = getRandom(countBarrels);
-        Item item;
-        Integer isBarrel = barrel;
-        while (!pouch.contains(barrel)) {
-            if (barrel > 1) {
-                barrel -= 1;
-            } else
-                barrel = countBarrels;
-            if (barrel.equals(isBarrel))
-                break;
-        }
-        pouch.remove(barrel);
-        item = board.getArrItems()[barrel - 1];
-        item.setColor(color);
-        item.draw();
-        System.out.println(Thread.currentThread().getName() + " достал фишку " + barrel);
-        if (pouch.isEmpty() && !gameOver) {
-            gameOver = true;
-            System.out.println(Thread.currentThread().getName() + " достал последнюю фишку!");
+        if(!pouch.isEmpty()) {
+            Integer barrel = getRandom(countBarrels);
+            Item item;
+            Integer isBarrel = barrel;
+            while (!pouch.contains(barrel)) {
+                if (barrel > 1) {
+                    barrel -= 1;
+                } else
+                    barrel = countBarrels;
+                if (barrel.equals(isBarrel))
+                    break;
+            }
+            pouch.remove(barrel);
+            item = board.getArrItems()[barrel - 1];
+            item.setColor(color);
+            item.draw();
+            System.out.println(Thread.currentThread().getName() + " достал фишку " + barrel);
+            if (pouch.isEmpty())
+                System.out.println(Thread.currentThread().getName() + " достал последнюю фишку!");
         }
     }
 
