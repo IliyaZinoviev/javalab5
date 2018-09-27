@@ -6,13 +6,11 @@ import java.util.ArrayList;
 public class Player implements Runnable {
     private Color color;
     private Game game;
-    private int number;
 
-    public Player(Color color, int number, Game game) {
+    public Player(Color color, Game game) {
         super();
         this.color = color;
         this.game = game;
-        this.number = number;
     }
 
     public void run() {

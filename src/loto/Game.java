@@ -17,7 +17,7 @@ public class Game {
             pouch.add(i);
         for(int i = 0; i<arrPlayers.length; i++)
             arrPlayers[i] = new Thread(new Player(new Color(Math.random(), Math.random(), Math.random(), 1),
-                    i, this));
+                    this));
     }
 
     public void start() {
