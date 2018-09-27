@@ -11,7 +11,6 @@ public class Game {
     private Thread[] arrPlayers = new Thread[countPlayers];
     private ArrayList<Integer> pouch = new ArrayList<>(countBarrels);
     private Board board = new Board(canvas.getGraphicsContext2D(), countBarrels);
-    private boolean gameOver = false;
     private PlayerAction playerAction = new PlayerAction(this);
 
     public Game(){
@@ -41,14 +40,6 @@ public class Game {
 
     public ArrayList<Integer> getPouch() {
         return pouch;
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
-    }
-
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
     }
 
     public PlayerAction getPlayerAction() {

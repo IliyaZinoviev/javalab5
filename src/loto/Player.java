@@ -1,7 +1,6 @@
 package loto;
 
 import javafx.scene.paint.Color;
-import java.util.ArrayList;
 
 public class Player implements Runnable {
     private Color color;
@@ -17,7 +16,7 @@ public class Player implements Runnable {
         while (!game.getPouch().isEmpty()) {
             game.getPlayerAction().getBarrel(color);
             try {
-                Thread.sleep(250);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 System.err.println(e.getMessage());
             }
